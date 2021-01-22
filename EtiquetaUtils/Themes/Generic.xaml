@@ -1,0 +1,225 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:EtiquetaUtils"
+xmlns:converter="clr-namespace:EtiquetaUtils.Converter"
+    xmlns:EElementos="clr-namespace:EtiquetaUtils.EElementos"
+    xmlns:System="clr-namespace:System;assembly=mscorlib">
+
+    <SolidColorBrush x:Key="LabelHeaderBackground">#BEDDED</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryColor">#3965ae</SolidColorBrush>
+    <SolidColorBrush x:Key="CancelColor">#FFF19090</SolidColorBrush>
+
+    <converter:InvertBoolConverter x:Key="InvertBoolConverter"/>
+    <converter:EmptyTextConverter x:Key="EmptyTextConverter"/>
+    <converter:BarCodeCasingConverter x:Key="BarCodeCasingConverter"/>
+    <converter:BarCodeScaleConverter x:Key="BarCodeScaleConverter"/>
+    <converter:EnableColunasSliderConverter x:Key="EnableColunasSliderConverter"/>
+    <converter:IsBusyToTextConverter x:Key="IsBusyToTextConverter"/>
+    <converter:ElementRotationConverter x:Key="ElementRotationConverter"/>
+    <converter:ElementRotationToText x:Key="ElementRotationToText"/>
+    <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    <converter:InverseBoolToVisConverter x:Key="InverseBoolToVisConverter"/>
+    <converter:AnyBoolConverter x:Key="AnyBoolConverter"/>
+    <converter:AnyBoolToVisibilityConverter x:Key="AnyBoolToVisibilityConverter"/>
+    <converter:ScaleTickConverter x:Key="ScaleTickConverter"/>
+    <converter:ScaleWidthConverter x:Key="ScaleWidthConverter"/>
+    <converter:LabelPreviewVisibilityConverter x:Key="LabelPreviewVisibilityConverter"/>
+    <converter:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    <converter:CmToPixelsConverter x:Key="CmToPixelsConverter"/>
+    <converter:EETypeToStringConverter x:Key="EETypeToStringConverter"/>
+    <converter:EnumValueToTextConverter x:Key="EnumValueToTextConverter"/>
+    <converter:NoBoolConverter x:Key="NoBoolConverter"/>
+    <converter:NoBoolToVisibilityConverter x:Key="NoBoolToVisibilityConverter"/>
+
+    <Style TargetType="TextBox">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Padding" Value="2"/>
+    </Style>
+    <Style TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style TargetType="Button" x:Key="mainButtonStyle">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="0,1,1,0" >
+                        <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity" Value="0.8"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Border" x:Key="borderStyle">
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="7" ShadowDepth="1" Opacity="0.7" Color="Black" Direction="0"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="4"/>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Margin" Value="0,5,0,0"/>
+    </Style>
+
+    <Style TargetType="EElementos:EETexto">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="-1,-1,0,0" />
+            </Trigger>
+            <Trigger Property="TextoValido" Value="False">
+                <Setter Property="ToolTip" Value="{Binding LastValidationError, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ComboBox" x:Key="cbProdutosStyle">
+        <Style.Setters>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding CodBarras}"/>                            
+                        <TextBlock Margin="10,0" Text="-" VerticalAlignment="Center"/>                            
+                        <TextBlock Text="{Binding Descricao}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="TextSearch.TextPath" Value="CodBarras"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type ComboBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid x:Name="gd" TextElement.Foreground="Black">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="100*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Margin="5" Grid.Column="0" Text="{Binding CodBarras}"/>
+                                        <TextBlock Text="-" Grid.Column="1" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="5" Grid.Column="2" Text="{Binding Descricao}"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                                            <Setter TargetName="gd"  Property="Background" Value="Gray"></Setter>
+                                            <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
+                                        </Trigger>
+                                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                                            <Setter TargetName="gd"  Property="Background" Value="{StaticResource PrimaryColor }"></Setter>
+                                            <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
+                                        </Trigger>
+
+                                        <!--IsHighlighted and IsMouseOver is showing same effect but IsHighlighted is used for showing logical focus( for understanding check using tab key)-->
+
+                                        <!--<Trigger Property="ComboBoxItem.IsHighlighted" Value="True">
+                                    <Setter TargetName="gd"  Property="Background" Value="Yellow"></Setter>
+                                    <Setter TargetName="gd"  Property="TextElement.Foreground" Value="Black"></Setter>
+                                </Trigger>-->
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style TargetType="EElementos:EEPrecoMascarado">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="-1,-1,0,0" />
+            </Trigger>
+            <Trigger Property="TextoValido" Value="False">
+                <Setter Property="ToolTip" Value="{Binding LastValidationError, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="EElementos:EEZBarCode">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="-1,-1,0,0" />
+            </Trigger>
+            <Trigger Property="TextoValido" Value="False">
+                <Setter Property="ToolTip" Value="{Binding LastValidationError, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="EElementos:EELinha">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="-1,-1,0,0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToolTip">
+        <Style.Resources>
+            <Style TargetType="ContentPresenter">
+                <Style.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="TextWrapping" Value="Wrap" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Style.Resources>
+        <Setter Property="MaxWidth" Value="200" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border Name="Border" CornerRadius="3" Background="{StaticResource LabelHeaderBackground}">
+                        <ContentPresenter Margin="4" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="BarcodeTemplate">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="#26FF0000" Grid.RowSpan="2" Visibility="{Binding TextoValido, Converter={StaticResource InverseBoolToVisConverter}}"/>
+            <Grid Background="{Binding ImgBarCode,UpdateSourceTrigger=PropertyChanged}" MinWidth="30" Height="{Binding Model.Altura, Converter={StaticResource CmToPixelsConverter}}" VerticalAlignment="Stretch" >
+                <Grid.Resources>
+                    <ScaleTransform x:Key="barcodeScale" ScaleX="{Binding Model.Scale, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid.Resources>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="RenderTransform" Value="{StaticResource barcodeScale}"/>
+                    </Style>
+                </Grid.Style>
+            </Grid>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" Visibility="{Binding Model.ShowHumanCode,Converter={StaticResource BooleanToVisibilityConverter}}" FontSize="14" Text="{Binding Texto, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource EmptyTextConverter}}"/>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

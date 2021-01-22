@@ -1,0 +1,422 @@
+﻿<Window x:Class="Etiquetas40.View.EtiquetaBuilder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Etiquetas40.View"
+        xmlns:converter="clr-namespace:EtiquetaUtils.Converter;assembly=EtiquetaUtils"
+        xmlns:components="clr-namespace:EtiquetaUtils.Components;assembly=EtiquetaUtils" xmlns:System.Windows="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        mc:Ignorable="d"
+        Title="LabelBuilder - Designer de etiquetas" Icon="/EtiquetaUtils;component/Img/barcodeicon.ico" Height="740" MinWidth="800" Width="800"
+        Background="LightGray">
+    <Window.InputBindings>
+        <KeyBinding Key="Delete" Command="{Binding RemoveElementCommand}"/>
+        <KeyBinding Key="Esc" Command="{Binding RemoveSelectionCommand}"/>
+    </Window.InputBindings>
+    <Window.Resources>
+        <System.Windows:Duration x:Key="AnimationTime">0:0:0.5</System.Windows:Duration>
+        <Storyboard x:Key="MaskedAdded" Duration="0:0:3">
+            <DoubleAnimation Storyboard.TargetName="imgMasked"
+                             Storyboard.TargetProperty="(Image.RenderTransform).(TranslateTransform.Y)"
+                             Duration="{StaticResource AnimationTime}"
+                             From="80"
+                             To="0" />
+            <DoubleAnimation Storyboard.TargetName="imgMasked" BeginTime="0:0:2.5"
+                             Storyboard.TargetProperty="(Image.RenderTransform).(TranslateTransform.Y)"
+                             Duration="{StaticResource AnimationTime}"
+                             From="0"
+                             To="80" />
+        </Storyboard>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="270"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="1" RenderTransformOrigin="0,0.5" Grid.Row="1" Grid.ColumnSpan="2" ClipToBounds="False" Margin="10">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="{Binding Zoom, UpdateSourceTrigger=PropertyChanged}" ScaleY="{Binding Zoom, UpdateSourceTrigger=PropertyChanged}"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle Grid.Column="1" Width="{Binding Etiqueta.Espacamento, Converter={StaticResource CmToPixelsConverter}}"/>
+            <Border Grid.Column="2" Visibility="{Binding Etiqueta.Colunas, Converter={StaticResource LabelPreviewVisibilityConverter}, ConverterParameter=2}" BorderBrush="Gray" Background="WhiteSmoke" CornerRadius="3" Width="{Binding Etiqueta.Width, Converter={StaticResource CmToPixelsConverter}}" Height="{Binding Etiqueta.Height, Converter={StaticResource CmToPixelsConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Viewbox>
+                    <TextBlock Text="2" Foreground="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </Viewbox>
+            </Border>
+            <Rectangle Grid.Column="3" Width="{Binding Etiqueta.Espacamento, Converter={StaticResource CmToPixelsConverter}}"/>
+            <Border Grid.Column="4" Visibility="{Binding Etiqueta.Colunas, Converter={StaticResource LabelPreviewVisibilityConverter}, ConverterParameter=3}" BorderBrush="Gray" Background="WhiteSmoke" CornerRadius="3" Width="{Binding Etiqueta.Width, Converter={StaticResource CmToPixelsConverter}}" Height="{Binding Etiqueta.Height, Converter={StaticResource CmToPixelsConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Viewbox>
+                    <TextBlock Text="3" Foreground="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </Viewbox>
+            </Border>
+            <Rectangle Grid.Column="5" Width="{Binding Etiqueta.Espacamento, Converter={StaticResource CmToPixelsConverter}}"/>
+            <Border Grid.Column="6" Visibility="{Binding Etiqueta.Colunas, Converter={StaticResource LabelPreviewVisibilityConverter}, ConverterParameter=4}" BorderBrush="Gray" Background="WhiteSmoke" CornerRadius="3" Width="{Binding Etiqueta.Width, Converter={StaticResource CmToPixelsConverter}}" Height="{Binding Etiqueta.Height, Converter={StaticResource CmToPixelsConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Viewbox>
+                    <TextBlock Text="4" Foreground="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </Viewbox>
+            </Border>
+            <Border BorderBrush="Gray" Background="White" CornerRadius="3" Width="{Binding Etiqueta.Width, Converter={StaticResource CmToPixelsConverter}}" Height="{Binding Etiqueta.Height, Converter={StaticResource CmToPixelsConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+                <Canvas x:Name="CANVAS_ETIQUETA">
+
+                </Canvas>
+            </Border>
+        </Grid>
+
+        <Grid  Grid.ColumnSpan="3" Margin="5">
+            <Border Style="{StaticResource borderStyle}"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="100*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Produtos" Grid.ColumnSpan="2" Background="{StaticResource LabelHeaderBackground}" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="2"/>
+                <StackPanel Grid.Row="1" Margin="5" Width="300">
+                    <TextBlock Text="Selecione um produto" FontWeight="Bold" />
+                    <ComboBox Style="{StaticResource cbProdutosStyle}" ItemsSource="{Binding Produtos}" SelectedItem="{Binding ProdutoSelecionado, Mode=TwoWay}" x:Name="cbProdutos" SelectedValuePath="IdProd"/>
+                </StackPanel>
+                <Grid Visibility="{Binding ProdutoSelecionado, Converter={StaticResource NullToVisibilityConverter}}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="10,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Id: "/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.IdProd}" FontWeight="Normal"/>
+                        <TextBlock Text="Descrição: " Margin="10,0,0,0" />
+                        <TextBlock Text="{Binding ProdutoSelecionado.Descricao}" TextWrapping="Wrap" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Código de barras: "/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.CodBarras}" FontWeight="Normal"/>
+                        <TextBlock Text="GTIN: " Margin="10,0,0,0" />
+                        <TextBlock Text="{Binding ProdutoSelecionado.GTIN}" TextWrapping="Wrap" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <TextBlock Text="P.Varejo: "/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.PrecoVarejo, StringFormat='c', ConverterCulture='pt-br'}" FontWeight="Normal"/>
+                        <TextBlock Text="P.Atacado: " Margin="10,0,0,0"/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.PrecoAtacado, StringFormat='c', ConverterCulture='pt-br'}" FontWeight="Normal"/>
+                        <TextBlock Text="Unidade: " Margin="10,0,0,0"/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.Unidade}" FontWeight="Normal"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <TextBlock Text="Marca: "/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.Marca}" FontWeight="Normal"/>
+                        <TextBlock Text="Cor: "  Margin="10,0,0,0"/>
+                        <TextBlock Text="{Binding ProdutoSelecionado.Cor}" FontWeight="Normal"/>
+                        <TextBlock Text="Tamanho: " Margin="10,0,0,0" />
+                        <TextBlock Text="{Binding ProdutoSelecionado.Tamanho}" TextWrapping="Wrap" FontWeight="Normal"/>
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+
+
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <Slider Value="{Binding Zoom, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="0.5"
+                                                Maximum="3"
+                                                TickFrequency="0.5" 
+                                                IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+            <TextBlock Text="Zoom" FontWeight="Bold" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <Image Grid.Row="1" Grid.RowSpan="2" x:Name="imgMasked" Grid.Column="1" Height="80" Source="/EtiquetaUtils;component/Img/zorro.png" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Image.RenderTransform>
+                <TranslateTransform Y="80"/>
+            </Image.RenderTransform>
+        </Image>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="5,5,10,0">
+                <Border Style="{StaticResource borderStyle}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Elementos" Background="{StaticResource LabelHeaderBackground}" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="2"/>
+                    <ListView Margin="10" BorderBrush="Transparent" SelectionChanged="lvOptions_SelectionChanged"  Grid.Row="1" Name="lvOptions" ItemsSource="{Binding ElementOptions}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Model.Tipo, Converter={StaticResource EETypeToStringConverter}}"  FontSize="14"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                </Grid>
+            </Grid>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,5,5,0" Grid.Row="1">
+                <Grid Margin="5" IsEnabled="{Binding IsElementSelected}" Visibility="{Binding IsElementSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Border Grid.Row="1" Style="{StaticResource borderStyle}" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Propriedades" Background="{StaticResource LabelHeaderBackground}" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="2"/>
+                        <StackPanel Grid.Row="1" Margin="10">
+                            <Label Content="{Binding ElementoSelecionado.Model.Tipo, Converter={StaticResource EETypeToStringConverter}}" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="0"/>
+
+                            <TextBox x:Name="tbTexto" IsReadOnly="{Binding ElementoSelecionado.IsReadOnly}" Visibility="{Binding ElementoSelecionado.HasText, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="{Binding ElementoSelecionado.HasText}" PreviewKeyDown="tbTexto_PreviewKeyDown" PreviewTextInput="tbTexto_PreviewTextInput" CharacterCasing="{Binding ElementoSelecionado, Converter={StaticResource BarCodeCasingConverter}}" Text="{Binding ElementoSelecionado.Texto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <StackPanel Visibility="{Binding ElementoSelecionado.IsReadOnly, Converter={StaticResource InverseBoolToVisConverter}}" IsEnabled="{Binding ElementoSelecionado.IsReadOnly, Converter={StaticResource InvertBoolConverter}}">
+
+                                <CheckBox IsChecked="{Binding ElementoSelecionado.Model.ShowHumanCode}" IsEnabled="{Binding ElementoSelecionado.IsBarCode}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource BooleanToVisibilityConverter}}" Content="Mostrar código"/>
+                                <CheckBox Content="Usar ID do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarIdProduto, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar código do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarCodProduto, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox Content="Usar GTIN do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarGTINProduto, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox Content="Usar descrição do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarDescProduto, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar preço de varejo" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarPrecoVarejo, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar preço de atacado" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarPrecoAtacado, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar unidade do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarUnidadeProduto, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar tamanho do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarTamanhoProduto, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar cor do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarCorProduto, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <CheckBox Content="Usar marca do produto" Checked="CheckBoxTextType_Checked" IsChecked="{Binding ElementoSelecionado.Model.UsarMarcaProduto, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InvertBoolConverter}}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                                <StackPanel Margin="0,15,0,0" IsEnabled="{Binding ElementoSelecionado.IsBarCode}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Tipo" FontWeight="Bold" />
+                                    </StackPanel>
+                                    <ComboBox ItemsSource="{Binding OpcoesCodBarras}" SelectedItem="{Binding ElementoSelecionado.TipoCodBarras}"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,15,0,0" IsEnabled="{Binding ElementoSelecionado.IsBarCode}" Visibility="{Binding ElementoSelecionado.IsBarCode, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Altura" FontWeight="Bold" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding ElementoSelecionado.Model.Altura, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <Slider Value="{Binding ElementoSelecionado.Model.Altura, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                                Minimum="0.1"
+                                                Maximum="4"
+                                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0,15,0,0">
+                                <StackPanel.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource NoBoolConverter}">
+                                        <Binding Path="ElementoSelecionado.IsBarCode"/>
+                                        <Binding Path="ElementoSelecionado.IsLine"/>
+                                    </MultiBinding>
+                                </StackPanel.IsEnabled>
+                                <StackPanel.Visibility>
+                                    <MultiBinding Converter="{StaticResource NoBoolToVisibilityConverter}">
+                                        <Binding Path="ElementoSelecionado.IsBarCode"/>
+                                        <Binding Path="ElementoSelecionado.IsLine"/>
+                                    </MultiBinding>
+                                </StackPanel.Visibility>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Tamanho da fonte" FontWeight="Bold" />
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding ElementoSelecionado.TamanhoFonte, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                                </StackPanel>
+                                <Slider Value="{Binding ElementoSelecionado.TamanhoFonte, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="1"
+                                                Maximum="5"
+                                                TickFrequency="1" IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+                            </StackPanel>
+                            <StackPanel>
+                                <StackPanel.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource AnyBoolConverter}">
+                                        <Binding Path="ElementoSelecionado.IsBarCode"/>
+                                        <Binding Path="ElementoSelecionado.IsLine"/>
+                                    </MultiBinding>
+                                </StackPanel.IsEnabled>
+                                <StackPanel.Visibility>
+                                    <MultiBinding Converter="{StaticResource AnyBoolToVisibilityConverter}">
+                                        <Binding Path="ElementoSelecionado.IsBarCode"/>
+                                        <Binding Path="ElementoSelecionado.IsLine"/>
+                                    </MultiBinding>
+                                </StackPanel.Visibility>
+                                <StackPanel Margin="0,15,0,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Largura" FontWeight="Bold" />
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding ElementoSelecionado.Model.Scale, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <Slider Value="{Binding ElementoSelecionado.Model.Scale, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="0"
+                                                Maximum="2"
+                                                TickFrequency="{Binding ElementoSelecionado.IsLine, Converter={StaticResource ScaleTickConverter}}" IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Grid Margin="0,15,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Girar" FontWeight="Bold" Padding="0" HorizontalAlignment="Center" Grid.ColumnSpan="3"/>
+                                <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding ElementoSelecionado.Model.Rotacao, Converter={StaticResource ElementRotationToText}}" Grid.ColumnSpan="3"/>
+                                <Button Background="Transparent" Height="30" Grid.Row="2" x:Name="btnRotateLeft" Click="btnRotateLeft_Click">
+                                    <Image Source="/EtiquetaUtils;component/Img/rotateleft.png"/>
+                                </Button>
+                                <Button Background="Transparent" Height="30" Grid.Row="2" Grid.Column="2" x:Name="btnRotateRight" Click="btnRotateRight_Click">
+                                    <Image Source="/EtiquetaUtils;component/Img/rotateright.png"/>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="2" Margin="5" IsEnabled="{Binding IsElementSelected}" Visibility="{Binding IsElementSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Button Background="{StaticResource PrimaryColor}" Style="{StaticResource mainButtonStyle}"
+                                Content="Adicionar" Name="btnAdicionar" Foreground="AliceBlue"
+                                IsEnabled="{Binding ElementoSelecionado.Adicionado, Converter={StaticResource InvertBoolConverter}}"
+                                Visibility="{Binding ElementoSelecionado.Adicionado, Converter={StaticResource InverseBoolToVisConverter}}"
+                                Click="btnAdicionar_Click"/>
+            <Button Background="{StaticResource CancelColor}" Style="{StaticResource mainButtonStyle}"
+                                Content="Remover" Name="btnRemover"
+                                IsEnabled="{Binding ElementoSelecionado.Adicionado}"
+                                Visibility="{Binding ElementoSelecionado.Adicionado, Converter={StaticResource BooleanToVisibilityConverter}}" Click="btnRemover_Click"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <Button Style="{StaticResource mainButtonStyle}" Margin="5,0" x:Name="btnOpenEtiqueta" Click="btnOpenEtiqueta_Click" Height="28" Foreground="AliceBlue" Background="{StaticResource PrimaryColor}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Carregar etiqueta" VerticalAlignment="Center"/>
+                    <Image Margin="10,0,0,0" Source="/EtiquetaUtils;component/Img/openlabel.png"/>
+                </StackPanel>
+            </Button>
+            <Grid Margin="5">
+                <Border Style="{StaticResource borderStyle}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Configuração" Background="{StaticResource LabelHeaderBackground}" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="2"/>
+                    <StackPanel Grid.Row="1" Margin="10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="Largura da etiqueta" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="0"/>
+                            <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding Etiqueta.Width, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0:N2\} cm'}"/>
+                        </StackPanel>
+                        <Label Margin="0,10,0,0" Content="Altura da etiqueta" HorizontalContentAlignment="Center" FontWeight="Bold" HorizontalAlignment="Stretch" Padding="0"/>
+                        <TextBox VerticalAlignment="Center" Text="{Binding Etiqueta.Height, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="allow_double"/>
+                        <StackPanel Margin="0,15,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Margem interna" FontWeight="Bold"/>
+                                <TextBlock Margin="10,0,0,0" Text="{Binding Margin, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0:N2\} cm'}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <Slider Value="{Binding Margin, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="0"
+                                                Maximum="20"
+                                                TickFrequency="1" IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,15,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Largura do papel" FontWeight="Bold" />
+                                <TextBlock Margin="10,0,0,0" Text="{Binding Etiqueta.LarguraPagina, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0:N2\} cm'}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <Slider Value="{Binding Etiqueta.LarguraPagina, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="5"
+                                                Maximum="20"
+                                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                            <TextBlock Text="Colunas" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                            <components:NumberPicker Margin="10,0,0,0" Number="{Binding Etiqueta.Colunas}" MinValue="1" MaxValue="4"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,15,0,0" IsEnabled="{Binding Etiqueta.Colunas, Converter={StaticResource EnableColunasSliderConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Espaçamento" FontWeight="Bold"/>
+                                <TextBlock Margin="10,0,0,0" Text="{Binding Etiqueta.Espacamento, UpdateSourceTrigger=PropertyChanged, StringFormat='\{0:N2\} cm'}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <Slider Value="{Binding Etiqueta.Espacamento, UpdateSourceTrigger=PropertyChanged}"
+                                                Minimum="0"
+                                                Maximum="1"
+                                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                                TickPlacement="BottomRight"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center" Text="Quantidade" FontWeight="Bold"/>
+                            <TextBox Width="80" Margin="10,0,0,0" PreviewTextInput="tbQuantidade_PreviewTextInput" x:Name="tbQuantidade" Text="{Binding Quantidade, UpdateSourceTrigger=PropertyChanged, FallbackValue='0'}" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,15,0,0" Orientation="Horizontal">
+                            <TextBlock Text="Dpi" />
+                            <ComboBox x:Name="cbDpi" Margin="10,0,0,0" Width="70" ItemsSource="{Binding DpiOptions}" SelectedValue="{Binding Etiqueta.Dpi}" DisplayMemberPath="Key" SelectedValuePath="Value"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,5,0,0" Orientation="Vertical">
+                            <TextBlock VerticalAlignment="Center" Text="Impressora" FontWeight="Bold"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox ItemsSource="{Binding Printers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedPrinter, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Button Grid.Column="1" Margin="5,0,0,0" Name="btnRefreshPrinters" Height="28" Click="btnRefreshPrinters_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="14"/>
+                                        </Style>
+                                    </Button.Resources>
+                                    <Image Source="/EtiquetaUtils;component/Img/refresh.png"/>
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+                        <Button Margin="0,10,0,0" 
+                                Height="30"
+                                Style="{StaticResource mainButtonStyle}"
+                                Background="{StaticResource PrimaryColor}"
+                                Content="{Binding IsBusy, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IsBusyToTextConverter}}"
+                                Foreground="AliceBlue"
+                                Click="btnImprimir_Click"
+                                Name="btnImprimir"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </StackPanel>
+        <Button Margin="5"
+                Grid.Row="2"
+                Grid.Column="2"
+                Style="{StaticResource mainButtonStyle}"
+                Name="btnSalvar" Click="btnSalvar_Click"
+                Content="Salvar"
+                Background="{StaticResource PrimaryColor}"
+                Foreground="AliceBlue"/>
+
+    </Grid>
+
+</Window>

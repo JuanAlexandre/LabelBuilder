@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelBuilder", "LabelBuilder\LabelBuilder.csproj", "{802AD4CE-EE3C-4B53-9895-17E49C1A4C6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtiquetaUtils", "EtiquetaUtils\EtiquetaUtils.csproj", "{07A8556E-D518-4556-9F1E-C10293A3011C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoLabelPrinter", "DemoLabelPrinter\DemoLabelPrinter.csproj", "{8A3D3554-C185-4BA1-96B8-98FFB2E3C128}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{802AD4CE-EE3C-4B53-9895-17E49C1A4C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{802AD4CE-EE3C-4B53-9895-17E49C1A4C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{802AD4CE-EE3C-4B53-9895-17E49C1A4C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{802AD4CE-EE3C-4B53-9895-17E49C1A4C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A8556E-D518-4556-9F1E-C10293A3011C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A8556E-D518-4556-9F1E-C10293A3011C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A8556E-D518-4556-9F1E-C10293A3011C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A8556E-D518-4556-9F1E-C10293A3011C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A3D3554-C185-4BA1-96B8-98FFB2E3C128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A3D3554-C185-4BA1-96B8-98FFB2E3C128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A3D3554-C185-4BA1-96B8-98FFB2E3C128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A3D3554-C185-4BA1-96B8-98FFB2E3C128}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB6813B2-17EE-4049-B6B5-EC6B83E4AF76}
+	EndGlobalSection
+EndGlobal

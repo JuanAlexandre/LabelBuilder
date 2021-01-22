@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="EtiquetaUtils.Components.NumberPicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EtiquetaUtils.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="np">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource PrimaryColor}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Height="25">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+                <!--IsEnabled="{Binding ElementName=np,Path=CanLowerValue}"-->
+        <Button x:Name="btnMinus"
+                BorderBrush="Black" BorderThickness="1,1,0,1" Click="btnMinus_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5,0,0,5"/>
+                </Style>
+            </Button.Resources>
+            <Image Source="../Img/minus.png"/>
+        </Button>
+        <Border BorderBrush="Black" BorderThickness="0,1,0,1" Background="LightGray" Grid.Column="1" >
+            <TextBlock Text="{Binding ElementName=np,Path=Number}" Width="40" TextAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+                <!--IsEnabled="{Binding ElementName=np,Path=CanAddValue,UpdateSourceTrigger=PropertyChanged}"-->
+        <Button x:Name="btnPlus" BorderBrush="Black" 
+                BorderThickness="0,1,1,1" Grid.Column="2" Click="btnPlus_Click">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="0,5,5,0"/>
+                </Style>
+            </Button.Resources>
+            <Image Source="../Img/plus.png"/>
+        </Button>
+    </Grid>
+</UserControl>

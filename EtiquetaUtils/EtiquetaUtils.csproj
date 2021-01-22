@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07A8556E-D518-4556-9F1E-C10293A3011C}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>EtiquetaUtils</RootNamespace>
+    <AssemblyName>EtiquetaUtils</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="zxing, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net40\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.6.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.6\lib\net40\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Components\NumberPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EElementos\EELinha.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EElementos\EETexto.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EElementos\EEZBarCode .xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EElementos\EEPrecoMascarado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Preview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\NumberPicker.xaml.cs">
+      <DependentUpon>NumberPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\AdicionarElementoConverter.cs" />
+    <Compile Include="Converter\AnyBoolConverter.cs" />
+    <Compile Include="Converter\AnyBoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\BarCodeCasingConverter.cs" />
+    <Compile Include="Converter\BarCodeScaleConverter.cs" />
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\CmToPixelsConverter.cs" />
+    <Compile Include="Converter\EnumValueToTextConverter.cs" />
+    <Compile Include="Converter\EETypeToStringConverter.cs" />
+    <Compile Include="Converter\ElementRotationConverter.cs" />
+    <Compile Include="Converter\ElementRotationToText.cs" />
+    <Compile Include="Converter\EmptyTextConverter.cs" />
+    <Compile Include="Converter\EnableColunasSliderConverter.cs" />
+    <Compile Include="Converter\InverseBoolToVisConverter.cs" />
+    <Compile Include="Converter\InvertBoolConverter.cs" />
+    <Compile Include="Converter\IsBusyToTextConverter.cs" />
+    <Compile Include="Converter\LabelPreviewVisibilityConverter.cs" />
+    <Compile Include="Converter\NoBoolConverter.cs" />
+    <Compile Include="Converter\NoBoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\NullToVisibilityConverter.cs" />
+    <Compile Include="Converter\ScaleTickConverter.cs" />
+    <Compile Include="Converter\ScaleWidthConverter.cs" />
+    <Compile Include="EElementos\EELinha.xaml.cs">
+      <DependentUpon>EELinha.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EElementos\EETexto.xaml.cs">
+      <DependentUpon>EETexto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EElementos\EEZBarCode .xaml.cs">
+      <DependentUpon>EEZBarCode .xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EElementos\EEPrecoMascarado.xaml.cs">
+      <DependentUpon>EEPrecoMascarado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Enums.cs" />
+    <Compile Include="Funcoes.cs" />
+    <Compile Include="Intarface\IEtiquetaBase.cs" />
+    <Compile Include="ModelView\PreviewViewModel.cs" />
+    <Compile Include="Model\EtiquetaModel.cs" />
+    <Compile Include="Model\EEModel.cs" />
+    <Compile Include="Model\Produto.cs" />
+    <Compile Include="Preview.xaml.cs">
+      <DependentUpon>Preview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrinterUtils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="StringCipher.cs" />
+    <Compile Include="UnitConverter.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\barcodeicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\rotateleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\rotateright.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\openfolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\openlabel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Img\zorro.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,15 @@
+﻿<Application x:Class="Etiquetas40.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Etiquetas40"
+             xmlns:components="clr-namespace:EtiquetaUtils.Components;assembly=EtiquetaUtils"
+             StartupUri="View/EtiquetaBuilder.xaml"
+             xmlns:interfaces="clr-namespace:EtiquetaUtils.Intarface;assembly=EtiquetaUtils"
+             xmlns:converters="clr-namesace:EtiquetaUtils.Converter:assembly=EtiquetaUtils"
+             xmlns:EElementos="clr-namespace:EtiquetaUtils.EElementos;assembly=EtiquetaUtils" xmlns:converters1="clr-namespace:EtiquetaUtils.Converter;assembly=EtiquetaUtils">
+    <Application.Resources>
+        <ResourceDictionary Source="pack://application:,,,/EtiquetaUtils;component/Themes/Generic.xaml"/>
+
+
+    </Application.Resources>
+</Application>
