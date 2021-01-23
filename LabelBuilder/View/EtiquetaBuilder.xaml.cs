@@ -87,8 +87,7 @@ namespace Etiquetas40.View
 
         private void btnImprimir_Click(object sender, RoutedEventArgs e)
         {
-            new Preview(new List<EtiquetaUtils.Model.Produto>() { new EtiquetaUtils.Model.Produto() { CodBarras = "fsadf", Cor = "asdf", Descricao = "sdfgs", GTIN = "asdf", IdProd = 123, Marca = "Nike", PrecoAtacado = 123, PrecoVarejo = 234, Tamanho = "G", Unidade = "Un" } }).Show();
-            //viewModel.Print();
+            viewModel.Print();
         }
 
         private void btnRotateLeft_Click(object sender, RoutedEventArgs e)
