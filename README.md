@@ -13,7 +13,7 @@ Por enquanto eu testei apenas na ZebraGC420, com etiquetas feitas para DPI 200. 
 
 # LabelBuilder
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](LabelBuilderIMAGE.jpg?raw=true "Title")
 
 O LabelBuilder é a ferramenta para criar as etiquetas
 
